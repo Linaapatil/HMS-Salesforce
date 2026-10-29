@@ -1,0 +1,94 @@
+<template>
+    <div class="schedule-card">
+        <!-- Header -->
+        <div class="schedule-header">
+            <div class="header-left">
+                <div class="header-icon">
+                    <lightning-icon icon-name="standard:event" alternative-text="Schedule" size="small"></lightning-icon>
+                </div>
+                <div>
+                    <h2>{cardTitle}</h2>
+                    <p>Appointments and patients for {selectedDate}</p>
+                </div>
+            </div>
+            <template lwc:if={hasAppointments}>
+                <div class="appointment-count">{appointmentCountLabel}</div>
+            </template>
+        </div>
+
+        <!-- No doctor -->
+        <template lwc:if={hasDoctor}>
+            <!-- Appointments -->
+            <template lwc:if={hasAppointments}>
+                <div class="appointment-list">
+                    <template for:each={appointments} for:item="appointment">
+                        <div
+                            key={appointment.Id}
+                            class="appointment-card"
+                            data-id={appointment.Id}
+                            onclick={handleAppointmentClick}
+                            role="button"
+                            tabindex="0"
+                        >
+                            <div class="slot-section">
+                                <div class="slot-icon">
+                                    <lightning-icon icon-name="utility:clock" alternative-text="Time" size="x-small"></lightning-icon>
+                                </div>
+                                <div>
+                                    <span class="field-label">TIME SLOT</span>
+                                    <div class="slot-value">{appointment.Slot__c}</div>
+                                </div>
+                            </div>
+
+                            <div class="patient-section">
+                                <span class="field-label">PATIENT</span>
+                                <div class="patient-name">{appointment.patientName}</div>
+                                <div class="patient-number">{appointment.patientNumber} · {appointment.Appointment_Type__c}</div>
+                            </div>
+
+                            <div class="status-section">
+                                <span class="field-label">STATUS</span>
+                                <span class={appointment.statusClass}>{appointment.Status__c}</span>
+                            </div>
+
+                            <div class="arrow-section">
+                                <lightning-icon icon-name="utility:chevronright" alternative-text="Open Appointment" size="x-small"></lightning-icon>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Empty State -->
+            <template lwc:elseif={appointments}>
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <lightning-icon icon-name="standard:event" alternative-text="No appointments" size="medium"></lightning-icon>
+                    </div>
+                    <h3>No appointments scheduled</h3>
+                    <p>There are no appointments for this doctor on the selected date.</p>
+                </div>
+            </template>
+        </template>
+        <template lwc:else>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <lightning-icon icon-name="standard:avatar" alternative-text="Select a doctor" size="medium"></lightning-icon>
+                </div>
+                <h3>Select a doctor</h3>
+                <p>Choose a doctor to see their schedule.</p>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template lwc:if={error}>
+            <div class="error-state">
+                <lightning-icon icon-name="utility:error" alternative-text="Error" size="small"></lightning-icon>
+                <div>
+                    <strong>Unable to load appointments</strong>
+                    <p>Please try selecting the doctor or date again.</p>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

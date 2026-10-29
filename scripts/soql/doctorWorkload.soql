@@ -1,0 +1,4 @@
+// Doctor workload: active appointment counter maintained by the Doctor Workload flow + trigger.
+SELECT Name, Specialization__c, Department__r.Name, Status__c, Active_Appointments__c
+FROM Doctor__c
+ORDER BY Active_Appointments__c DESC NULLS LAST

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Email_Hospital_Admin</name>
+        <label>Email Hospital Admin</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>fAdminEmail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>MedCare weekly appointment summary</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ttSummaryBody</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <assignments>
+        <name>Count_Appointments</name>
+        <label>Count Appointments</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>varLastWeekCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Last_Week_Appointments</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varNextWeekCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Next_Week_Appointments</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Email_Hospital_Admin</targetReference>
+        </connector>
+    </assignments>
+    <description>Scheduled flow: every Monday at 9 AM, emails the weekly appointment summary to the Hospital Admin (Custom Label HMS_Admin_Email).</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>fAdminEmail</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.HMS_Admin_Email}</expression>
+    </formulas>
+    <formulas>
+        <name>fNextWeek</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() + 7</expression>
+    </formulas>
+    <formulas>
+        <name>fWeekAgo</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 7</expression>
+    </formulas>
+    <interviewLabel>Weekly Report {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Weekly Report</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Last_Week_Appointments</name>
+        <label>Get Last Week Appointments</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Next_Week_Appointments</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Appointment_Date__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>fWeekAgo</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Appointment_Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Appointment__c</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Next_Week_Appointments</name>
+        <label>Get Next Week Appointments</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Count_Appointments</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Appointment_Date__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Appointment_Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>fNextWeek</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Cancelled</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Appointment__c</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Last_Week_Appointments</targetReference>
+        </connector>
+        <schedule>
+            <frequency>Weekly</frequency>
+            <startDate>2026-11-02</startDate>
+            <startTime>09:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>ttSummaryBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>MedCare Hospital - Weekly Appointment Summary ({!$Flow.CurrentDate})
+
+Appointments in the last 7 days: {!varLastWeekCount}
+Upcoming appointments in the next 7 days: {!varNextWeekCount}
+
+Open the MedCare HMS app for the full Hospital Admin dashboard.</text>
+    </textTemplates>
+    <variables>
+        <name>varLastWeekCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>varNextWeekCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+</Flow>

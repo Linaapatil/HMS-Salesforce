@@ -1,0 +1,211 @@
+.appointment-container {
+    background: #f4f7fb;
+    border-radius: 14px;
+    padding: 0;
+    min-height: 0;
+}
+
+
+
+.appointment-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    background: linear-gradient(135deg, #621ba5, #d931df);
+    border-radius: 14px;
+    padding: 26px 30px;
+    margin-bottom: 24px;
+    color: white;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+}
+
+.header-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.header-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: white;
+}
+
+.appointment-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.appointment-header p {
+    margin: 5px 0 0;
+    opacity: 0.85;
+    font-size: 14px;
+    color: white;
+}
+
+
+/* Form Card */
+
+.record-type-section {
+    background: white;
+    border-radius: 14px 14px 0 0;
+    padding: 20px 24px 8px;
+    border: 1px solid #e6ebf0;
+    border-bottom: none;
+}
+
+.form-section {
+    background: white;
+    padding: 8px 24px 24px;
+    border: 1px solid #e6ebf0;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+
+/* Form Fields */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 8px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.status-field {
+    max-width: 50%;
+    margin-bottom: 10px;
+}
+
+
+/* Specialist */
+
+.specialist-section {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 10px;
+    background: #f7f9fc;
+    border: 1px solid #e6ebf0;
+}
+
+.specialist-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.specialist-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #183b56;
+}
+
+.specialist-header p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: #637381;
+}
+
+
+/* Button */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 20px;
+    padding-top: 18px;
+
+    border-top: 1px solid #edf0f3;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .appointment-container {
+        padding: 14px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .status-field {
+        max-width: 100%;
+    }
+
+    .appointment-header {
+        padding: 20px;
+    }
+
+    .appointment-header h2 {
+        font-size: 22px;
+    }
+
+    .form-section,
+    .record-type-section {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+}
+/* Selected doctor (LDS) */
+
+.doctor-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0 16px;
+    padding: 12px 14px;
+    border: 1px solid #e6ebf0;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.doctor-info {
+    flex: 1;
+}
+
+.doctor-name {
+    font-weight: 600;
+    color: #183b56;
+}
+
+.doctor-meta {
+    font-size: 12px;
+    color: #637381;
+}
+
+.doctor-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.doctor-status.available {
+    background: #e3f5e9;
+    color: #1e7b3b;
+}
+
+.doctor-status.unavailable {
+    background: #fde8e8;
+    color: #b42318;
+}

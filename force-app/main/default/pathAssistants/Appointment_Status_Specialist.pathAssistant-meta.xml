@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Appointment__c</entityName>
+    <fieldName>Status__c</fieldName>
+    <masterLabel>Appointment Status - Specialist</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Appointment_Date__c</fieldNames>
+        <fieldNames>Slot__c</fieldNames>
+        <fieldNames>Doctor__c</fieldNames>
+        <info>&lt;p&gt;Call the patient to confirm the slot (see the confirmation task).&lt;/p&gt;</info>
+        <picklistValueName>Requested</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Patient_Email__c</fieldNames>
+        <fieldNames>Appointment_Type__c</fieldNames>
+        <info>&lt;p&gt;A confirmation email is sent automatically to the patient.&lt;/p&gt;</info>
+        <picklistValueName>Confirmed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Specialist_Required__c</fieldNames>
+        <info>&lt;p&gt;A Billing record is created automatically with the default charge for this appointment type.&lt;/p&gt;</info>
+        <picklistValueName>Completed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Patient_Email__c</fieldNames>
+        <info>&lt;p&gt;The doctor slot is freed and a cancellation email is sent to the patient.&lt;/p&gt;</info>
+        <picklistValueName>Cancelled</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Specialist_Consultation</recordTypeName>
+</PathAssistant>

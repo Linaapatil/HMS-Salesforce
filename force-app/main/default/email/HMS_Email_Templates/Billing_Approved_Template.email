@@ -1,0 +1,10 @@
+Dear Patient,
+
+Your bill {!Billing__c.Name} has been approved.
+
+Total charges: {!Billing__c.Total_Charges__c}
+Insurance covered: {!Billing__c.Insurance_Amount__c}
+Amount due: {!Billing__c.Amount_Due__c}
+
+Regards,
+MedCare Hospital Billing

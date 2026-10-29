@@ -1,0 +1,13 @@
+Dear Patient,
+
+Your appointment {!Appointment__c.Name} at MedCare Hospital is confirmed.
+
+Date: {!Appointment__c.Appointment_Date__c}
+Time: {!Appointment__c.Slot__c}
+Doctor: {!Appointment__c.Doctor__c}
+Department: {!Appointment__c.Department_Name__c}
+
+Please arrive 15 minutes early and bring your ID and insurance card.
+
+Regards,
+MedCare Hospital

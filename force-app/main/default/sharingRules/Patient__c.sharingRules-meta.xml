@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Share_General_Medicine_Patients</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share General Medicine patients with doctors of the same department.</description>
+        <label>Share General Medicine Patients</label>
+        <sharedTo>
+            <group>Dept_General_Medicine_Doctors</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Primary_Department__c</field>
+            <operation>equals</operation>
+            <value>General Medicine</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Cardiology_Patients</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Cardiology patients with doctors of the same department.</description>
+        <label>Share Cardiology Patients</label>
+        <sharedTo>
+            <group>Dept_Cardiology_Doctors</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Primary_Department__c</field>
+            <operation>equals</operation>
+            <value>Cardiology</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Neurology_Patients</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Neurology patients with doctors of the same department.</description>
+        <label>Share Neurology Patients</label>
+        <sharedTo>
+            <group>Dept_Neurology_Doctors</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Primary_Department__c</field>
+            <operation>equals</operation>
+            <value>Neurology</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Orthopedics_Patients</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Orthopedics patients with doctors of the same department.</description>
+        <label>Share Orthopedics Patients</label>
+        <sharedTo>
+            <group>Dept_Orthopedics_Doctors</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Primary_Department__c</field>
+            <operation>equals</operation>
+            <value>Orthopedics</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Pediatrics_Patients</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Pediatrics patients with doctors of the same department.</description>
+        <label>Share Pediatrics Patients</label>
+        <sharedTo>
+            <group>Dept_Pediatrics_Doctors</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Primary_Department__c</field>
+            <operation>equals</operation>
+            <value>Pediatrics</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Emergency_Patients_With_On_Call</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Emergency patients are shared with the on-call doctor group.</description>
+        <label>Share Emergency Patients With On-Call</label>
+        <sharedTo>
+            <group>On_Call_Doctors</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Primary_Department__c</field>
+            <operation>equals</operation>
+            <value>Emergency Medicine</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Appointment__c.Patient_Name__c</field>
+    </columns>
+    <columns>
+        <field>Appointment__c.Patient__c</field>
+    </columns>
+    <columns>
+        <field>Appointment__c.Doctor__c</field>
+    </columns>
+    <columns>
+        <field>Appointment__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Appointment__c.Slot__c</field>
+    </columns>
+    <description>Tabular: today's appointments with patient name, doctor, status and slot time.</description>
+    <format>Tabular</format>
+    <name>Today's Appointment List</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Appointment__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Appointment__c.Slot__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Appointment__c.Appointment_Date__c</dateColumn>
+        <interval>INTERVAL_TODAY</interval>
+    </timeFrameFilter>
+</Report>

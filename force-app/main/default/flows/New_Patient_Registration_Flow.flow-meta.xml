@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Welcome_Email</name>
+        <label>Send Welcome Email</label>
+        <locationX>50</locationX>
+        <locationY>998</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Registration_Complete</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Registration_Complete</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Welcome to MedCare Hospital</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ttWelcomeEmail</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <choices>
+        <name>chOutpatient</name>
+        <choiceText>Outpatient</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Outpatient</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>chInpatient</name>
+        <choiceText>Inpatient</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inpatient</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>chEmergency</name>
+        <choiceText>Emergency</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Emergency</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Has_Email</name>
+        <label>Has Email</label>
+        <locationX>182</locationX>
+        <locationY>890</locationY>
+        <defaultConnector>
+            <targetReference>Registration_Complete</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Email</defaultConnectorLabel>
+        <rules>
+            <name>Email_Provided</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Email</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Welcome_Email</targetReference>
+            </connector>
+            <label>Email Provided</label>
+        </rules>
+    </decisions>
+    <description>Screen flow: Personal Info &gt; Insurance Details &gt; Emergency Contact &gt; Confirmation. Creates the Patient record and sends a welcome email.</description>
+    <dynamicChoiceSets>
+        <name>pcsBloodGroup</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <object xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <picklistField>Blood_Group__c</picklistField>
+        <picklistObject>Patient__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>pcsDepartment</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <object xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <picklistField>Primary_Department__c</picklistField>
+        <picklistObject>Patient__c</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <interviewLabel>New Patient Registration {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>New Patient Registration</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Patient</name>
+        <label>Create Patient</label>
+        <locationX>182</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>Get_New_Patient</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Address__c</field>
+            <value>
+                <elementReference>Address</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Blood_Group__c</field>
+            <value>
+                <elementReference>Blood_Group</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DOB__c</field>
+            <value>
+                <elementReference>Date_of_Birth</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email__c</field>
+            <value>
+                <elementReference>Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Emergency_Contact_Name__c</field>
+            <value>
+                <elementReference>Emergency_Contact_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Emergency_Contact__c</field>
+            <value>
+                <elementReference>Emergency_Contact_Phone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Full_Name__c</field>
+            <value>
+                <elementReference>Full_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Insurance_Policy_No__c</field>
+            <value>
+                <elementReference>Policy_Number</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Insurance_Provider__c</field>
+            <value>
+                <elementReference>Insurance_Provider</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone__c</field>
+            <value>
+                <elementReference>Phone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Primary_Department__c</field>
+            <value>
+                <elementReference>Primary_Department</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Record_Type.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Patient__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_New_Patient</name>
+        <label>Get New Patient</label>
+        <locationX>182</locationX>
+        <locationY>782</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Has_Email</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Create_Patient</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Patient__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Record_Type</name>
+        <label>Get Record Type</label>
+        <locationX>182</locationX>
+        <locationY>566</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Patient</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Patient__c</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Patient_Type</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Personal_Info</name>
+        <label>Personal Info</label>
+        <locationX>182</locationX>
+        <locationY>134</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Insurance_Details</targetReference>
+        </connector>
+        <fields>
+            <name>Personal_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Step 1 of 4 - Personal Info&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Full_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Full Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Date_of_Birth</name>
+            <dataType>Date</dataType>
+            <fieldText>Date of Birth</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Date of Birth cannot be a future date.&lt;/p&gt;</errorMessage>
+                <formulaExpression>{!Date_of_Birth} &lt;= TODAY()</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Blood_Group</name>
+            <choiceReferences>pcsBloodGroup</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Blood Group</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Patient_Type</name>
+            <choiceReferences>chOutpatient</choiceReferences>
+            <choiceReferences>chInpatient</choiceReferences>
+            <choiceReferences>chEmergency</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>chOutpatient</defaultSelectedChoiceReference>
+            <fieldText>Patient Type</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Primary_Department</name>
+            <choiceReferences>pcsDepartment</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Primary Department</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Phone</name>
+            <dataType>String</dataType>
+            <fieldText>Phone</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Email</name>
+            <dataType>String</dataType>
+            <fieldText>Email</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Enter a valid email address.&lt;/p&gt;</errorMessage>
+                <formulaExpression>OR(ISBLANK({!Email}), REGEX({!Email}, &quot;[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}&quot;))</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Address</name>
+            <dataType>String</dataType>
+            <fieldText>Address</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Insurance_Details</name>
+        <label>Insurance Details</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Emergency_Contact</targetReference>
+        </connector>
+        <fields>
+            <name>Insurance_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Step 2 of 4 - Insurance Details&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Leave blank for self-paying patients.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Insurance_Provider</name>
+            <dataType>String</dataType>
+            <fieldText>Insurance Provider</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Policy_Number</name>
+            <dataType>String</dataType>
+            <fieldText>Policy Number</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Emergency_Contact</name>
+        <label>Emergency Contact</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Confirmation</targetReference>
+        </connector>
+        <fields>
+            <name>Emergency_Header</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Step 3 of 4 - Emergency Contact&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Emergency_Contact_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Contact Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Emergency_Contact_Phone</name>
+            <dataType>String</dataType>
+            <fieldText>Contact Phone</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Confirmation</name>
+        <label>Confirmation</label>
+        <locationX>182</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Get_Record_Type</targetReference>
+        </connector>
+        <fields>
+            <name>Confirmation_Summary</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Step 4 of 4 - Confirm Registration&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; {!Full_Name}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Date of Birth:&lt;/b&gt; {!Date_of_Birth}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Blood Group:&lt;/b&gt; {!Blood_Group}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Patient Type:&lt;/b&gt; {!Patient_Type}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Phone / Email:&lt;/b&gt; {!Phone} / {!Email}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Insurance:&lt;/b&gt; {!Insurance_Provider} {!Policy_Number}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Emergency Contact:&lt;/b&gt; {!Emergency_Contact_Name} ({!Emergency_Contact_Phone})&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Click &lt;b&gt;Next&lt;/b&gt; to create the patient record.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Registration_Complete</name>
+        <label>Registration Complete</label>
+        <locationX>182</locationX>
+        <locationY>1190</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Complete_Message</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px; color: rgb(46, 132, 74);&quot;&gt;Patient registered successfully&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Patient ID: &lt;b&gt;{!Get_New_Patient.Name}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Name: {!Full_Name}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Personal_Info</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>ttWelcomeEmail</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Dear {!Full_Name},
+
+Welcome to MedCare Hospital. Your registration is complete.
+
+Your Patient ID is {!Get_New_Patient.Name}. Please quote it when booking appointments.
+
+Regards,
+MedCare Hospital</text>
+    </textTemplates>
+</Flow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HMS_Compact</fullName>
+    <fields>Name</fields>
+    <fields>Patient__c</fields>
+    <fields>Status__c</fields>
+    <fields>Total_Charges__c</fields>
+    <fields>Amount_Due__c</fields>
+    <label>HMS Compact</label>
+</CompactLayout>

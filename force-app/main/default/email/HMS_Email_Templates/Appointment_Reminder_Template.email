@@ -1,0 +1,12 @@
+Dear Patient,
+
+This is a reminder that you have an appointment at MedCare Hospital tomorrow.
+
+Date: {!Appointment__c.Appointment_Date__c}
+Time: {!Appointment__c.Slot__c}
+Doctor: {!Appointment__c.Doctor__c}
+
+If you cannot attend, please call us to reschedule.
+
+Regards,
+MedCare Hospital

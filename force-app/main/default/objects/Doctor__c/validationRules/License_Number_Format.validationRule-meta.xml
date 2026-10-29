@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>License_Number_Format</fullName>
+    <active>true</active>
+    <description>License number must follow the format MCI-XXXXXX (six digits).</description>
+    <errorConditionFormula>OR(
+    ISBLANK(License_No__c),
+    NOT(REGEX(License_No__c, &quot;MCI-[0-9]{6}&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>License_No__c</errorDisplayField>
+    <errorMessage>License number must follow the format MCI-XXXXXX (e.g. MCI-123456).</errorMessage>
+</ValidationRule>

@@ -1,0 +1,98 @@
+<template>
+    <div class="appointment-container">
+        <!-- Header -->
+        <div class="appointment-header">
+            <div class="header-icon">
+                <lightning-icon icon-name="standard:event" alternative-text="Appointment" size="medium"></lightning-icon>
+            </div>
+            <div>
+                <h2>Book an Appointment</h2>
+                <p>Select a patient in Patient Search, or pick one below</p>
+            </div>
+        </div>
+
+        <!-- Record Type -->
+        <div class="record-type-section">
+            <lightning-combobox
+                label="Record Type"
+                value={selectedRecordTypeId}
+                options={recordTypeOptions}
+                placeholder="Select Appointment Type"
+                onchange={handleRecordTypeChange}
+            ></lightning-combobox>
+        </div>
+
+        <!-- Appointment Form -->
+        <div class="form-section">
+            <lightning-record-edit-form
+                object-api-name="Appointment__c"
+                record-type-id={selectedRecordTypeId}
+                onsuccess={handleSuccess}
+                onerror={handleError}
+            >
+                <lightning-messages></lightning-messages>
+
+                <!-- Patient & Doctor -->
+                <div class="form-grid">
+                    <div class="field">
+                        <lightning-input-field field-name="Patient__c" value={selectedPatientId} onchange={handlePatientChange} required></lightning-input-field>
+                    </div>
+                    <div class="field">
+                        <lightning-input-field field-name="Doctor__c" onchange={handleDoctorChange} required></lightning-input-field>
+                    </div>
+                </div>
+
+                <!-- Selected doctor (LDS getRecord) -->
+                <template lwc:if={hasDoctor}>
+                    <div class="doctor-card">
+                        <lightning-icon icon-name="standard:avatar" alternative-text="Doctor" size="small"></lightning-icon>
+                        <div class="doctor-info">
+                            <div class="doctor-name">{doctorName}</div>
+                            <div class="doctor-meta">{doctorSpecialization} · {doctorAvailability} · {doctorWorkload} active appointments</div>
+                        </div>
+                        <span class={doctorStatusClass}>{doctorStatusLabel}</span>
+                    </div>
+                </template>
+
+                <!-- Date & Slot -->
+                <div class="form-grid">
+                    <div class="field">
+                        <lightning-input-field field-name="Appointment_Date__c" required></lightning-input-field>
+                    </div>
+                    <div class="field">
+                        <lightning-input-field field-name="Slot__c" required></lightning-input-field>
+                    </div>
+                </div>
+
+                <!-- Type & Status -->
+                <div class="form-grid">
+                    <div class="field">
+                        <lightning-input-field field-name="Appointment_Type__c"></lightning-input-field>
+                    </div>
+                    <div class="field">
+                        <lightning-input-field field-name="Status__c" value="Requested"></lightning-input-field>
+                    </div>
+                </div>
+
+                <!-- Specialist Section (Specialist Consultation record type only) -->
+                <template lwc:if={isSpecialist}>
+                    <div class="specialist-section">
+                        <div class="specialist-header">
+                            <lightning-icon icon-name="standard:employee" alternative-text="Specialist" size="small"></lightning-icon>
+                            <div>
+                                <h3>Specialist Information</h3>
+                                <p>Additional information for specialist appointments</p>
+                            </div>
+                        </div>
+                        <lightning-input-field field-name="Specialist_Required__c"></lightning-input-field>
+                    </div>
+                </template>
+
+                <!-- Action -->
+                <div class="form-actions">
+                    <lightning-button type="submit" variant="brand" label="Book Appointment" disabled={isSubmitDisabled}></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+        </div>
+    </div>
+</template>

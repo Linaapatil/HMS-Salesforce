@@ -1,0 +1,8 @@
+Dear Patient,
+
+Your appointment {!Appointment__c.Name} on {!Appointment__c.Appointment_Date__c} at {!Appointment__c.Slot__c} has been cancelled.
+
+Please contact MedCare Hospital to book a new slot.
+
+Regards,
+MedCare Hospital

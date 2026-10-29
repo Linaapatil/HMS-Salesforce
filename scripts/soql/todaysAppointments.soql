@@ -1,0 +1,5 @@
+// Today's appointments with patient, doctor, department, slot and status.
+SELECT Name, Patient_Name__c, Doctor__r.Name, Department_Name__c, Slot__c, Status__c
+FROM Appointment__c
+WHERE Appointment_Date__c = TODAY
+ORDER BY Slot__c

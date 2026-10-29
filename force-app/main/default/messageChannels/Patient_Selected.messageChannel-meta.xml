@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Patient Selected</masterLabel>
+    <isExposed>true</isExposed>
+    <description>Publishes the selected patient from patient search</description>
+
+    <lightningMessageFields>
+        <fieldName>patientId</fieldName>
+        <description>Selected Patient record Id</description>
+    </lightningMessageFields>
+
+</LightningMessageChannel>

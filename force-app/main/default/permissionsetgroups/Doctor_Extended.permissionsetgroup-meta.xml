@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Doctor_Profile permissions plus Lab access.</description>
+    <label>Doctor Extended</label>
+    <permissionSets>HMS_Doctor_Access</permissionSets>
+    <permissionSets>HMS_Lab_Access</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

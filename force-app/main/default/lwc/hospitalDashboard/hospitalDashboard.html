@@ -1,0 +1,170 @@
+<template>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <lightning-icon icon-name="standard:dashboard" alternative-text="Dashboard" size="medium"></lightning-icon>
+                </div>
+                <div>
+                    <h1>MedCare Hospital</h1>
+                    <p>Hospital Management Dashboard</p>
+                </div>
+            </div>
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Refresh dashboard"
+                title="Refresh dashboard"
+                variant="border-filled"
+                onclick={refreshAll}
+            ></lightning-button-icon>
+        </div>
+
+        <!-- Today's Overview -->
+        <div class="section">
+            <div class="section-title">
+                <h2>Today's Overview</h2>
+                <span class="date-label">{selectedDate}</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon appointment-icon">
+                        <lightning-icon icon-name="standard:event" alternative-text="Appointments" size="small"></lightning-icon>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Today's Appointments</span>
+                        <span class="stat-value" data-id="today-count">{todayStats.totalAppointments}</span>
+                        <span class="stat-description">{todayBreakdown}</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon revenue-icon">
+                        <lightning-icon icon-name="standard:currency" alternative-text="Revenue" size="small"></lightning-icon>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Revenue This Month</span>
+                        <span class="stat-value" data-id="month-revenue">{monthRevenueLabel}</span>
+                        <span class="stat-description">{insuranceLabel}</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon bed-icon">
+                        <lightning-icon icon-name="standard:household" alternative-text="Beds" size="small"></lightning-icon>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Bed Occupancy</span>
+                        <span class="stat-value" data-id="bed-occupancy">{beds.occupancyPercent}%</span>
+                        <span class="stat-description">{occupancyLabel}</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon department-icon">
+                        <lightning-icon icon-name="standard:approval" alternative-text="Approvals" size="small"></lightning-icon>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Pending Bill Approvals</span>
+                        <span class="stat-value">{revenue.pendingApprovals}</span>
+                        <span class="stat-description">{todayStats.activeDoctors} active doctors</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <!-- Doctor Schedule -->
+            <div class="section dashboard-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Doctor Schedule</h2>
+                        <p>Select a doctor and date to view appointments.</p>
+                    </div>
+                </div>
+
+                <div class="filter-area">
+                    <div class="filter-field">
+                        <lightning-record-picker
+                            label="Select Doctor"
+                            placeholder="Search Doctor..."
+                            object-api-name="Doctor__c"
+                            onchange={handleDoctorChange}
+                        ></lightning-record-picker>
+                    </div>
+                    <div class="filter-field">
+                        <lightning-input type="date" label="Appointment Date" value={selectedDate} onchange={handleDateChange}></lightning-input>
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <c-doctor-schedule-card
+                        doctor-id={selectedDoctorId}
+                        selected-date={selectedDate}
+                        onappointmentselected={handleAppointmentSelected}
+                    ></c-doctor-schedule-card>
+                </div>
+            </div>
+
+            <!-- Quick booking (child -> parent event) -->
+            <div class="section dashboard-card">
+                <c-appointment-form stay-on-page onappointmentsaved={handleAppointmentSaved}></c-appointment-form>
+            </div>
+        </div>
+
+        <!-- Department Summary -->
+        <div class="section dashboard-card">
+            <div class="card-header">
+                <div>
+                    <h2>Department Overview</h2>
+                    <p>Today's appointments and bed occupancy by department.</p>
+                </div>
+            </div>
+
+            <template lwc:if={hasDepartments}>
+                <div class="table-container">
+                    <table class="department-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Head of Department</th>
+                                <th>Floor</th>
+                                <th>Bed Occupancy</th>
+                                <th>Today's Appointments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={departmentSummary} for:item="department">
+                                <tr key={department.key} data-id={department.departmentId} onclick={handleDepartmentClick}>
+                                    <td><div class="department-name">{department.department}</div></td>
+                                    <td>{department.headOfDepartment}</td>
+                                    <td>{department.floor}</td>
+                                    <td>
+                                        <div class="occupancy-bar"><div class="occupancy-fill" style={department.occupancyStyle}></div></div>
+                                        <span class="occupancy-text">{department.occupancyLabel}</span>
+                                    </td>
+                                    <td><span class="appointment-badge">{department.appointmentCount}</span></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <template lwc:else>
+                <div class="empty-state">
+                    <lightning-icon icon-name="utility:info" alternative-text="No data" size="small"></lightning-icon>
+                    <p>No departments found.</p>
+                </div>
+            </template>
+        </div>
+
+        <!-- Error -->
+        <template lwc:if={error}>
+            <div class="error-message">
+                <lightning-icon icon-name="utility:error" alternative-text="Error" size="small"></lightning-icon>
+                <span>Unable to load dashboard data.</span>
+            </div>
+        </template>
+    </div>
+</template>

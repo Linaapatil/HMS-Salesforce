@@ -1,0 +1,99 @@
+<template>
+    <div class="patient-container">
+        <!-- Header -->
+        <div class="patient-header">
+            <div class="header-icon">
+                <lightning-icon icon-name="standard:people" alternative-text="Patients" size="medium"></lightning-icon>
+            </div>
+            <div class="header-content">
+                <h2>Patient Search</h2>
+                <p>Search by name or Patient ID, then select a patient to book an appointment</p>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <lightning-input
+                type="search"
+                label="Search Patient"
+                placeholder="e.g. Ananya or PAT-0001"
+                value={searchTerm}
+                is-loading={isLoading}
+                onchange={handleSearch}
+            ></lightning-input>
+
+            <div class="register-section">
+                <span class="register-text">New patient?</span>
+                <lightning-button
+                    label="Register New Patient"
+                    variant="brand"
+                    icon-name="utility:add"
+                    onclick={handleNewPatient}
+                ></lightning-button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <template lwc:if={hasResults}>
+            <div class="results-section">
+                <div class="results-header">
+                    <div>
+                        <h3>Patient Results</h3>
+                        <p>Select a patient to continue.</p>
+                    </div>
+                    <span class="result-count">{patients.length}</span>
+                </div>
+
+                <div class="patient-list">
+                    <template for:each={resultRows} for:item="patient">
+                        <div
+                            key={patient.Id}
+                            data-id={patient.Id}
+                            onclick={handlePatientClick}
+                            class={patient.cssClass}
+                            role="button"
+                            tabindex="0"
+                        >
+                            <div class="patient-avatar">
+                                <lightning-icon icon-name="standard:people" alternative-text="Patient" size="small"></lightning-icon>
+                            </div>
+                            <div class="patient-details">
+                                <div class="patient-name">{patient.displayName}</div>
+                                <div class="patient-id">{patient.details}</div>
+                            </div>
+                            <div class="open-icon">
+                                <lightning-button-icon
+                                    icon-name="utility:new_window"
+                                    variant="bare"
+                                    alternative-text="Open patient record"
+                                    title="Open patient record"
+                                    data-id={patient.Id}
+                                    onclick={handleOpenPatient}
+                                ></lightning-button-icon>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- No Results -->
+        <template lwc:if={showNoResults}>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <lightning-icon icon-name="utility:search" alternative-text="No results" size="small"></lightning-icon>
+                </div>
+                <h3>No patient found</h3>
+                <p>Check the name or patient ID, or register a new patient.</p>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template lwc:if={error}>
+            <div class="error-message">
+                <lightning-icon icon-name="utility:error" alternative-text="Error" size="small"></lightning-icon>
+                <span>Unable to search patients.</span>
+            </div>
+        </template>
+    </div>
+</template>

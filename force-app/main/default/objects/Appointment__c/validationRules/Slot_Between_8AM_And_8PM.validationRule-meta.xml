@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Slot_Between_8AM_And_8PM</fullName>
+    <active>true</active>
+    <description>Slot time must be between 8 AM and 8 PM. The slot picklist text (e.g. "02:00 PM") is converted to a Time so HOUR() can be applied.</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(TEXT(Slot__c))),
+    OR(
+        HOUR(TIMEVALUE(
+            LPAD(TEXT(MOD(VALUE(LEFT(TEXT(Slot__c), 2)), 12) + IF(RIGHT(TEXT(Slot__c), 2) = &quot;PM&quot;, 12, 0)), 2, &quot;0&quot;)
+            &amp; &quot;:&quot; &amp; MID(TEXT(Slot__c), 4, 2) &amp; &quot;:00.000&quot;
+        )) &lt; 8,
+        HOUR(TIMEVALUE(
+            LPAD(TEXT(MOD(VALUE(LEFT(TEXT(Slot__c), 2)), 12) + IF(RIGHT(TEXT(Slot__c), 2) = &quot;PM&quot;, 12, 0)), 2, &quot;0&quot;)
+            &amp; &quot;:&quot; &amp; MID(TEXT(Slot__c), 4, 2) &amp; &quot;:00.000&quot;
+        )) &gt; 20
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Slot__c</errorDisplayField>
+    <errorMessage>Appointment slot must be between 8 AM and 8 PM.</errorMessage>
+</ValidationRule>

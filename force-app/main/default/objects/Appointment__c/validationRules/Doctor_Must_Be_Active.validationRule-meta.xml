@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Doctor_Must_Be_Active</fullName>
+    <active>true</active>
+    <description>Cannot schedule an appointment with a doctor who is on leave (Status = Inactive / On Leave).</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(Doctor__c)),
+    OR(ISNEW(), ISCHANGED(Doctor__c), ISCHANGED(Appointment_Date__c)),
+    OR(
+        ISPICKVAL(Doctor__r.Status__c, &quot;Inactive&quot;),
+        ISPICKVAL(Doctor__r.Status__c, &quot;On Leave&quot;)
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Doctor__c</errorDisplayField>
+    <errorMessage>This doctor is inactive or on leave and cannot be booked.</errorMessage>
+</ValidationRule>
