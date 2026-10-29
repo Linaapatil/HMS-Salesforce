@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="Architecture: experience layer, Apex services, automation, data and integrations">
+  <title>MedCare HMS architecture</title>
+  <defs>
+    <linearGradient id="hdr1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#A855F7"/></linearGradient>
+    <linearGradient id="hdr2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4F46E5"/><stop offset="1" stop-color="#6366F1"/></linearGradient>
+    <linearGradient id="hdr3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E7490"/><stop offset="1" stop-color="#0891B2"/></linearGradient>
+    <linearGradient id="hdr4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0F766E"/><stop offset="1" stop-color="#14B8A6"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#9C95BB"/>
+    </marker>
+    <style>
+      .bg { fill: #FBFAFF; stroke: #E4E1F0; }
+      .col { fill: #FFFFFF; stroke: #E4E1F0; }
+      .head { font: 700 14px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #FFFFFF; letter-spacing: 1.2px; }
+      .item { fill: #F6F4FC; stroke: #E9E5F5; }
+      .name { font: 600 14px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #1E1537; }
+      .desc { font: 400 11.5px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #6B6489; }
+      .caption { font: 600 12px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #8B85A8; letter-spacing: 1px; }
+      .flow { stroke: #C9C3E0; stroke-width: 2; fill: none; stroke-dasharray: 6 6; animation: dash 1.2s linear infinite; }
+      @keyframes dash { to { stroke-dashoffset: -12; } }
+      .k1 { opacity: 0; animation: show 0.6s ease-out 0.1s forwards; }
+      .k2 { opacity: 0; animation: show 0.6s ease-out 0.4s forwards; }
+      .k3 { opacity: 0; animation: show 0.6s ease-out 0.7s forwards; }
+      .k4 { opacity: 0; animation: show 0.6s ease-out 1.0s forwards; }
+      @keyframes show { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+  </defs>
+
+  <rect class="bg" x="1" y="1" width="1198" height="558" rx="18"/>
+  <text x="600" y="36" class="caption" text-anchor="middle">REQUEST FLOW  ·  LEFT TO RIGHT</text>
+
+  <!-- connectors with travelling pulses -->
+  <g>
+    <path id="p1" class="flow" d="M290 290 H318" marker-end="url(#arrow)"/>
+    <path id="p2" class="flow" d="M590 290 H618" marker-end="url(#arrow)"/>
+    <path id="p3" class="flow" d="M890 290 H918" marker-end="url(#arrow)"/>
+    <path id="w1" d="M292 290 H326" fill="none"/>
+    <path id="w2" d="M592 290 H626" fill="none"/>
+    <path id="w3" d="M892 290 H926" fill="none"/>
+  </g>
+
+  <!-- Column 1: experience -->
+  <g class="k1">
+    <rect class="col" x="30" y="56" width="260" height="474" rx="14"/>
+    <rect x="30" y="56" width="260" height="46" rx="14" fill="url(#hdr1)"/>
+    <rect x="30" y="86" width="260" height="16" fill="url(#hdr1)"/>
+    <text x="50" y="85" class="head">EXPERIENCE</text>
+    <rect class="item" x="46" y="118" width="228" height="62" rx="10"/>
+    <text x="62" y="144" class="name">patientSearchBar</text>
+    <text x="62" y="164" class="desc">Debounced search · LMS publish</text>
+    <rect class="item" x="46" y="190" width="228" height="62" rx="10"/>
+    <text x="62" y="216" class="name">appointmentForm</text>
+    <text x="62" y="236" class="desc">LDS getRecord · record types</text>
+    <rect class="item" x="46" y="262" width="228" height="62" rx="10"/>
+    <text x="62" y="288" class="name">hospitalDashboard</text>
+    <text x="62" y="308" class="desc">Stats · revenue · bed occupancy</text>
+    <rect class="item" x="46" y="334" width="228" height="62" rx="10"/>
+    <text x="62" y="360" class="name">doctorScheduleCard</text>
+    <text x="62" y="380" class="desc">Wire Apex · doctor portal</text>
+    <rect class="item" x="46" y="406" width="228" height="62" rx="10"/>
+    <text x="62" y="432" class="name">Screen flows</text>
+    <text x="62" y="452" class="desc">Registration · patient summary</text>
+    <text x="160" y="506" class="desc" text-anchor="middle">Lightning Message Service</text>
+  </g>
+
+  <!-- Column 2: Apex -->
+  <g class="k2">
+    <rect class="col" x="330" y="56" width="260" height="474" rx="14"/>
+    <rect x="330" y="56" width="260" height="46" rx="14" fill="url(#hdr2)"/>
+    <rect x="330" y="86" width="260" height="16" fill="url(#hdr2)"/>
+    <text x="350" y="85" class="head">APEX SERVICES</text>
+    <rect class="item" x="346" y="118" width="228" height="62" rx="10"/>
+    <text x="362" y="144" class="name">PatientService</text>
+    <text x="362" y="164" class="desc">Search · age group · merge</text>
+    <rect class="item" x="346" y="190" width="228" height="62" rx="10"/>
+    <text x="362" y="216" class="name">AppointmentScheduler</text>
+    <text x="362" y="236" class="desc">Free slots · daily schedule</text>
+    <rect class="item" x="346" y="262" width="228" height="62" rx="10"/>
+    <text x="362" y="288" class="name">BillingCalculator</text>
+    <text x="362" y="308" class="desc">Procedures · discount · insurance</text>
+    <rect class="item" x="346" y="334" width="228" height="62" rx="10"/>
+    <text x="362" y="360" class="name">EmailService</text>
+    <text x="362" y="380" class="desc">Templated, fail-safe email</text>
+    <rect class="item" x="346" y="406" width="228" height="62" rx="10"/>
+    <text x="362" y="432" class="name">HospitalDashboardController</text>
+    <text x="362" y="452" class="desc">Aggregates for the dashboard</text>
+    <text x="460" y="506" class="desc" text-anchor="middle">with sharing · WITH USER_MODE</text>
+  </g>
+
+  <!-- Column 3: automation -->
+  <g class="k3">
+    <rect class="col" x="630" y="56" width="260" height="474" rx="14"/>
+    <rect x="630" y="56" width="260" height="46" rx="14" fill="url(#hdr3)"/>
+    <rect x="630" y="86" width="260" height="16" fill="url(#hdr3)"/>
+    <text x="650" y="85" class="head">AUTOMATION</text>
+    <rect class="item" x="646" y="118" width="228" height="62" rx="10"/>
+    <text x="662" y="144" class="name">Appointment / Billing triggers</text>
+    <text x="662" y="164" class="desc">Conflicts · roll-ups · tasks</text>
+    <rect class="item" x="646" y="190" width="228" height="62" rx="10"/>
+    <text x="662" y="216" class="name">Record-triggered flows</text>
+    <text x="662" y="236" class="desc">Confirmation · workload · billing</text>
+    <rect class="item" x="646" y="262" width="228" height="62" rx="10"/>
+    <text x="662" y="288" class="name">Scheduled flows</text>
+    <text x="662" y="308" class="desc">7 AM reminders · Monday report</text>
+    <rect class="item" x="646" y="334" width="228" height="62" rx="10"/>
+    <text x="662" y="360" class="name">Batch · Queueable · Future</text>
+    <text x="662" y="380" class="desc">Monthly report · lab chain · claims</text>
+    <rect class="item" x="646" y="406" width="228" height="62" rx="10"/>
+    <text x="662" y="432" class="name">Approval process</text>
+    <text x="662" y="452" class="desc">Emergency bills over Rs. 1 lakh</text>
+    <text x="760" y="506" class="desc" text-anchor="middle">Bulkified · governor-safe</text>
+  </g>
+
+  <!-- Column 4: data and integrations -->
+  <g class="k4">
+    <rect class="col" x="930" y="56" width="240" height="474" rx="14"/>
+    <rect x="930" y="56" width="240" height="46" rx="14" fill="url(#hdr4)"/>
+    <rect x="930" y="86" width="240" height="16" fill="url(#hdr4)"/>
+    <text x="950" y="85" class="head">DATA + INTEGRATIONS</text>
+    <rect class="item" x="946" y="118" width="208" height="62" rx="10"/>
+    <text x="962" y="144" class="name">9 custom objects</text>
+    <text x="962" y="164" class="desc">Patient · Appointment · Billing ...</text>
+    <rect class="item" x="946" y="190" width="208" height="62" rx="10"/>
+    <text x="962" y="216" class="name">Security model</text>
+    <text x="962" y="236" class="desc">Profiles · perm sets · sharing</text>
+    <rect class="item" x="946" y="262" width="208" height="62" rx="10"/>
+    <text x="962" y="288" class="name">Lab system (REST)</text>
+    <text x="962" y="308" class="desc">callout:LabSystem_NC</text>
+    <rect class="item" x="946" y="334" width="208" height="62" rx="10"/>
+    <text x="962" y="360" class="name">Insurance (SOAP)</text>
+    <text x="962" y="380" class="desc">callout:Insurance_NC</text>
+    <rect class="item" x="946" y="406" width="208" height="62" rx="10"/>
+    <text x="962" y="432" class="name">External EHR</text>
+    <text x="962" y="452" class="desc">GET /apexrest/HMS/patient/{id}</text>
+    <text x="1050" y="506" class="desc" text-anchor="middle">Named credentials · Apex REST</text>
+  </g>
+
+  <!-- travelling pulses -->
+  <circle r="4.5" fill="#A855F7"><animateMotion dur="1.2s" repeatCount="indefinite" begin="1.2s"><mpath href="#w1"/></animateMotion></circle>
+  <circle r="4.5" fill="#6366F1"><animateMotion dur="1.2s" repeatCount="indefinite" begin="2s"><mpath href="#w2"/></animateMotion></circle>
+  <circle r="4.5" fill="#14B8A6"><animateMotion dur="1.2s" repeatCount="indefinite" begin="2.8s"><mpath href="#w3"/></animateMotion></circle>
+</svg>

@@ -1,40 +1,52 @@
 <div align="center">
 
-# 🏥 MedCare Hospital Management System
+<img src="docs/assets/header.svg" alt="MedCare Hospital Management System" width="100%"/>
 
-**An end-to-end healthcare CRM built on Salesforce**: patients, doctors, appointments, departments, billing and medical records, with automation, Apex, LWC, integrations, reports and dashboards.
+<br/>
 
-![Apex Tests](https://img.shields.io/badge/Apex%20tests-75%2F75%20passing-2ea44f)
-![Apex Coverage](https://img.shields.io/badge/org%20coverage-97%25-2ea44f)
-![Jest](https://img.shields.io/badge/LWC%20Jest-24%2F24%20passing-2ea44f)
-![API](https://img.shields.io/badge/Salesforce%20API-v67.0-00A1E0)
-![LWC](https://img.shields.io/badge/UI-Lightning%20Web%20Components-6f42c1)
+<a href="#testing"><img src="https://img.shields.io/badge/Apex%20Tests-75%2F75%20Passing-1f883d?style=for-the-badge&logo=salesforce&logoColor=white" alt="Apex tests"/></a>
+<a href="#testing"><img src="https://img.shields.io/badge/Coverage-97%25-1f883d?style=for-the-badge" alt="Coverage"/></a>
+<a href="#testing"><img src="https://img.shields.io/badge/LWC%20Jest-24%2F24-1f883d?style=for-the-badge&logo=jest&logoColor=white" alt="Jest"/></a>
+<img src="https://img.shields.io/badge/API-v67.0-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white" alt="API version"/>
+<img src="https://img.shields.io/badge/UI-Lightning%20Web%20Components-6E3FD8?style=for-the-badge" alt="LWC"/>
 
-<img src="docs/screenshots/01-hms-home.png" alt="MedCare HMS home page" width="900"/>
+<h3>
+  <a href="#live-walkthrough">Walkthrough</a>
+  <span> · </span>
+  <a href="#screenshots">Screenshots</a>
+  <span> · </span>
+  <a href="#architecture">Architecture</a>
+  <span> · </span>
+  <a href="#requirements-checklist-project-pdf">Requirements</a>
+  <span> · </span>
+  <a href="#getting-started">Getting started</a>
+</h3>
+
+<img src="docs/assets/metrics.svg" alt="75/75 Apex tests, 97% coverage, 24/24 Jest tests, 7 flows" width="100%"/>
 
 </div>
 
----
+## Live walkthrough
+
+<p align="center">
+  <img src="docs/assets/demo.gif" alt="Searching a patient, pre-filling the booking form via Lightning Message Service, the dashboard, appointment Path and the admin dashboard" width="100%"/>
+</p>
+
+<p align="center"><sub>Recorded from the running org: patient search &rarr; select patient (booking form pre-filled through Lightning Message Service) &rarr; admin dashboard &rarr; department occupancy &rarr; appointment Path &rarr; Hospital Admin Dashboard</sub></p>
+
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Contents
 
-- [Overview](#overview)
-- [Screenshots](#screenshots)
-- [Requirements checklist](#requirements-checklist-project-pdf)
-- [Architecture](#architecture)
-- [Data model](#data-model)
-- [Security](#security)
-- [Automation](#automation)
-- [Apex](#apex)
-- [Lightning Web Components](#lightning-web-components)
-- [Reports and dashboard](#reports-and-dashboard)
-- [Testing](#testing)
-- [Getting started](#getting-started)
-- [Manual steps](#manual-steps-not-deployable-as-metadata)
-- [Project structure](#project-structure)
-- [What was fixed](#what-was-fixed)
+| Product | Platform | Delivery |
+|---|---|---|
+| [Overview](#overview) | [Data model](#data-model) | [Testing](#testing) |
+| [Screenshots](#screenshots) | [Security](#security) | [Getting started](#getting-started) |
+| [Requirements checklist](#requirements-checklist-project-pdf) | [Automation](#automation) | [Manual steps](#manual-steps-not-deployable-as-metadata) |
+| [Architecture](#architecture) | [Apex](#apex) · [LWC](#lightning-web-components) | [Project structure](#project-structure) |
+| [Reports and dashboard](#reports-and-dashboard) | | [What was fixed](#what-was-fixed) |
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Overview
 
@@ -42,12 +54,12 @@ MedCare Hospital is a 500-bed multi-specialty hospital moving from spreadsheets 
 
 | | |
 |---|---|
-| 🧑‍⚕️ **Patients**: registration screen flow, unique Patient ID, record types (Inpatient / Outpatient / Emergency) | 📅 **Appointments**: conflict detection, Path, confirmation / reminder / cancellation emails |
-| 👩‍⚕️ **Doctors**: directory, specialization, availability, department, senior → junior hierarchy | 🏢 **Departments**: bed count, floor, Head of Department, live bed occupancy |
-| 💳 **Billing**: auto-pricing from procedures, discounts and insurance, plus an emergency approval process | 📋 **Medical records & lab results**: diagnoses, prescriptions, report URLs, external lab API |
-| 📊 **Admin dashboard**: today's appointments, revenue, bed occupancy, approvals, doctor workload | 🔌 **Integrations**: REST lab callout, SOAP insurance check, Apex REST API for external EHRs |
+| **Patients**: registration screen flow, unique Patient ID, record types (Inpatient / Outpatient / Emergency) | **Appointments**: conflict detection, Path, confirmation / reminder / cancellation emails |
+| **Doctors**: directory, specialization, availability, department, senior → junior hierarchy | **Departments**: bed count, floor, Head of Department, live bed occupancy |
+| **Billing**: auto-pricing from procedures, discounts and insurance, plus an emergency approval process | **Medical records & lab results**: diagnoses, prescriptions, report URLs, external lab API |
+| **Admin dashboard**: today's appointments, revenue, bed occupancy, approvals, doctor workload | **Integrations**: REST lab callout, SOAP insurance check, Apex REST API for external EHRs |
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Screenshots
 
@@ -85,40 +97,45 @@ MedCare Hospital is a 500-bed multi-specialty hospital moving from spreadsheets 
 
 <p align="center"><img src="docs/screenshots/14-apex-tests.png" alt="Apex test execution" width="900"/><br/><em>Every Apex test class passing in the org (75 tests, 97% org-wide coverage)</em></p>
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Requirements checklist (project PDF)
 
 | PDF § | Requirement | Status | Where |
 |---|---|:---:|---|
-| 3.1 | Custom objects Patient, Doctor, Appointment, Department, Billing, Medical Record (+ Procedure, Patient Procedure, Lab Result) | ✅ | `objects/` |
-| 3.2 | Master-detail Billing → Appointment, Medical Record → Patient; lookups; M:N Patient ↔ Procedure; doctor hierarchy | ✅ | `objects/*/fields` |
-| 3.3 | Formulas `Age__c`, `Is_Today__c`; roll-ups `Total_Appointments__c`, `Total_Billed_Amount__c` | ✅ | roll-ups in Apex ¹ |
-| 4.1.1 | Profiles Hospital_Admin, Doctor_Profile, Receptionist_Profile; perm set Billing_Manager; PSG Doctor_Extended | ✅ | `profiles/`, `permissionsets/`, `permissionsetgroups/` |
-| 4.1.2 | OWD Patient Private, Appointment Public Read Only, Billing Private ²; criteria sharing; role hierarchy; on-call group | ✅ | `sharingRules/`, `roles/`, `groups/` |
-| 4.1.3 | FLS: Insurance_Amount hidden from doctors, SSN read-only for receptionists, Doctor required on receptionist layout | ✅ | profiles + `Appointment Receptionist Layout` |
-| 4.2 | Doctor layout, Patient Lightning page, Path, quick actions, record-type page assignment | ✅ | `layouts/`, `flexipages/`, `pathAssistants/`, `quickActions/`, `applications/` |
-| 4.3 | Record types (Patient ×3, Appointment ×3), layouts per record type, dependent picklist | ✅ | `recordTypes/`, `Specialist_Required__c` |
-| 4.4 | Validation rules: slot 8 AM–8 PM (`HOUR()`), DOB not future, amount ≥ 0, `MCI-XXXXXX` regex, doctor not on leave | ✅ | `validationRules/` |
-| 5.1 | Flows: Appointment Confirmation, Doctor Workload, Billing Auto-Create | ✅ | `flows/` |
-| 5.2 | Scheduled flows: Daily 7 AM reminder, Monday 9 AM weekly report | ✅ | `flows/` |
-| 5.3 | New Patient Registration screen flow (4 steps) + welcome email | ✅ | `flows/New_Patient_Registration_Flow` |
-| 5.4 | Emergency Billing Approval (> ₹1L, second step > ₹5L, approve/reject actions) | ✅ | `approvalProcesses/`, `workflows/Billing__c` |
-| 6.1 | One trigger per object + handler; conflict detection, past-date check, tasks, cancellation, counters; bulkified | ✅ | `AppointmentTrigger`, `AppointmentTriggerHandler` |
-| 6.2 | PatientService, BillingCalculator, AppointmentScheduler, EmailService, HospitalException | ✅ | `classes/` |
-| 6.3 | Batch, Schedulable, Future, Queueable | ✅ | `MonthlyBillingReport`, `DailyAppointmentReminder`, `SendInsuranceClaimAsync`, `LabResultProcessor` |
-| 6.4 | Test classes, TestDataFactory, `SeeAllData=false`, start/stopTest, ≥ 85% coverage | ✅ **97%** | `*Test.cls` |
-| 6.5 | REST callout (Named Credential + mock), SOAP insurance verification, Apex REST `/HMS/patient/{id}` | ✅ | `LabIntegrationService`, `InsuranceVerificationService`, `PatientRestService` |
-| 7 | 4 LWCs, parent↔child events, LMS, NavigationMixin, app home page | ✅ | `lwc/`, `messageChannels/` |
-| 8 | Tabular, summary, matrix, chart reports; dashboard with 5+ components | ✅ | `reports/`, `dashboards/` |
-| 9 | SFDX project, Git, change sets / CI-CD | 🟡 | SFDX ✅, see [manual steps](#manual-steps-not-deployable-as-metadata) |
+| 3.1 | Custom objects Patient, Doctor, Appointment, Department, Billing, Medical Record (+ Procedure, Patient Procedure, Lab Result) | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `objects/` |
+| 3.2 | Master-detail Billing → Appointment, Medical Record → Patient; lookups; M:N Patient ↔ Procedure; doctor hierarchy | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `objects/*/fields` |
+| 3.3 | Formulas `Age__c`, `Is_Today__c`; roll-ups `Total_Appointments__c`, `Total_Billed_Amount__c` | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | roll-ups in Apex ¹ |
+| 4.1.1 | Profiles Hospital_Admin, Doctor_Profile, Receptionist_Profile; perm set Billing_Manager; PSG Doctor_Extended | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `profiles/`, `permissionsets/`, `permissionsetgroups/` |
+| 4.1.2 | OWD Patient Private, Appointment Public Read Only, Billing Private ²; criteria sharing; role hierarchy; on-call group | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `sharingRules/`, `roles/`, `groups/` |
+| 4.1.3 | FLS: Insurance_Amount hidden from doctors, SSN read-only for receptionists, Doctor required on receptionist layout | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | profiles + `Appointment Receptionist Layout` |
+| 4.2 | Doctor layout, Patient Lightning page, Path, quick actions, record-type page assignment | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `layouts/`, `flexipages/`, `pathAssistants/`, `quickActions/`, `applications/` |
+| 4.3 | Record types (Patient ×3, Appointment ×3), layouts per record type, dependent picklist | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `recordTypes/`, `Specialist_Required__c` |
+| 4.4 | Validation rules: slot 8 AM–8 PM (`HOUR()`), DOB not future, amount ≥ 0, `MCI-XXXXXX` regex, doctor not on leave | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `validationRules/` |
+| 5.1 | Flows: Appointment Confirmation, Doctor Workload, Billing Auto-Create | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `flows/` |
+| 5.2 | Scheduled flows: Daily 7 AM reminder, Monday 9 AM weekly report | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `flows/` |
+| 5.3 | New Patient Registration screen flow (4 steps) + welcome email | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `flows/New_Patient_Registration_Flow` |
+| 5.4 | Emergency Billing Approval (> ₹1L, second step > ₹5L, approve/reject actions) | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `approvalProcesses/`, `workflows/Billing__c` |
+| 6.1 | One trigger per object + handler; conflict detection, past-date check, tasks, cancellation, counters; bulkified | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `AppointmentTrigger`, `AppointmentTriggerHandler` |
+| 6.2 | PatientService, BillingCalculator, AppointmentScheduler, EmailService, HospitalException | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `classes/` |
+| 6.3 | Batch, Schedulable, Future, Queueable | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `MonthlyBillingReport`, `DailyAppointmentReminder`, `SendInsuranceClaimAsync`, `LabResultProcessor` |
+| 6.4 | Test classes, TestDataFactory, `SeeAllData=false`, start/stopTest, ≥ 85% coverage | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) 97% | `*Test.cls` |
+| 6.5 | REST callout (Named Credential + mock), SOAP insurance verification, Apex REST `/HMS/patient/{id}` | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `LabIntegrationService`, `InsuranceVerificationService`, `PatientRestService` |
+| 7 | 4 LWCs, parent↔child events, LMS, NavigationMixin, app home page | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `lwc/`, `messageChannels/` |
+| 8 | Tabular, summary, matrix, chart reports; dashboard with 5+ components | ![Complete](https://img.shields.io/badge/Complete-1f883d?style=flat-square) | `reports/`, `dashboards/` |
+| 9 | SFDX project, Git, change sets / CI-CD | ![Partial](https://img.shields.io/badge/Partial-bf8700?style=flat-square) | SFDX project complete; see [manual steps](#manual-steps-not-deployable-as-metadata) |
 
 ¹ Appointment → Patient is a **lookup** (as the PDF specifies), and native roll-up summaries require master-detail. The counts and sums are therefore maintained by `AppointmentTriggerHandler` and `BillingTriggerHandler`, which behave the same way as a roll-up.
 ² Billing is the detail side of a master-detail with Appointment, so Salesforce forces its OWD to *Controlled by Parent*. With Appointment set to Public Read Only, only users with Billing object access (the Billing_Manager permission set) can see bills.
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Architecture
+
+<p align="center"><img src="docs/assets/architecture.svg" alt="Experience layer, Apex services, automation, data and integrations" width="100%"/></p>
+
+<details>
+<summary><b>Detailed component and event flow</b></summary>
 
 ```mermaid
 flowchart LR
@@ -172,7 +189,9 @@ flowchart LR
     EHR{{External EHR}} -- "GET /services/apexrest/HMS/patient/{id}" --> PRS[PatientRestService]
 ```
 
----
+</details>
+
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Data model
 
@@ -233,7 +252,7 @@ erDiagram
     }
 ```
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Security
 
@@ -249,9 +268,11 @@ erDiagram
 - **Roles:** CEO › Hospital Admin › Department Head › Doctor › Receptionist.
 - **Sharing:** criteria-based rules share patients with the doctors' group for their `Primary_Department__c`; Emergency Medicine patients are shared (Read/Write) with the **On-Call Doctors** public group.
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Automation
+
+<p align="center"><img src="docs/assets/lifecycle.svg" alt="Appointment lifecycle: Requested, Confirmed, Completed, Cancelled and the automation each stage triggers" width="100%"/></p>
 
 | Type | Name | What it does |
 |---|---|---|
@@ -264,7 +285,7 @@ erDiagram
 | Screen (quick action) | **Send Patient Summary Email** | Emails the patient a summary of their record |
 | Approval | **Emergency Billing Approval** | > ₹1,00,000: Department Head (chosen by submitter); > ₹5,00,000: plus Hospital Admin. Approve → *Approved* + patient email; Reject → *Rejected* + revise task |
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Apex
 
@@ -286,7 +307,7 @@ erDiagram
 curl -H "Authorization: Bearer $TOKEN" https://<my-domain>.my.salesforce.com/services/apexrest/HMS/patient/PAT-0001
 ```
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Lightning Web Components
 
@@ -297,7 +318,7 @@ curl -H "Authorization: Bearer $TOKEN" https://<my-domain>.my.salesforce.com/ser
 | `doctorScheduleCard` | `@wire getAppointmentsByDoctor`, props `doctorId` / `selectedDate`, `appointmentselected` event, `@api refresh()` with `refreshApex`; works on the Doctor record page (`recordId`) or as "My Schedule" for a logged-in doctor |
 | `hospitalDashboard` | Four imperative Apex calls with `Promise.all`, `for:each` department table, parent of `doctorScheduleCard` (passes date) and `appointmentForm` (child → parent event), subscribes to `Appointment_Refresh` |
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Reports and dashboard
 
@@ -313,15 +334,15 @@ Folder **HMS Reports**:
 
 **Hospital Admin Dashboard** (running user: HMS admin): Today's Appointments (metric), Monthly Revenue (column), Bed Occupancy by Department (donut), Pending Approvals (table), Doctor Workload (horizontal bar), Appointment Status (pie).
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Testing
 
 | Suite | Result |
 |---|---|
-| Apex (15 test classes, 75 methods) | ✅ **75/75 passing**, **97% org-wide coverage** |
-| LWC Jest (4 suites, 24 tests) | ✅ **24/24 passing**, 94% statement coverage |
-| ESLint (LWC) | ✅ clean |
+| Apex (15 test classes, 75 methods) | **75/75 passing**, **97% org-wide coverage** |
+| LWC Jest (4 suites, 24 tests) | **24/24 passing**, 94% statement coverage |
+| ESLint (LWC) | No errors |
 
 Every Apex test uses `@IsTest(SeeAllData=false)`, `Test.startTest()/stopTest()` and `TestDataFactory`. They cover positive, negative and **bulk (200-record)** cases, plus all pricing edge cases (zero procedures, 100%+ discount, full insurance, negative input). Callouts are mocked with `LabSystemCalloutMock`, `HmsHttpCalloutMock` and `InsuranceVerificationMock`.
 
@@ -331,7 +352,7 @@ npm test                # LWC Jest tests
 npm run lint            # ESLint
 ```
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Getting started
 
@@ -382,7 +403,7 @@ Permission sets, profiles (FLS), record types and layouts are generated from the
 node scripts/generate/security-and-layouts.js . <admin-username>
 ```
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Manual steps (not deployable as metadata)
 
@@ -397,7 +418,7 @@ node scripts/generate/security-and-layouts.js . <admin-username>
 | **Change set / UAT** | Outbound change set `HMS_Phase1_Config` with objects, fields, layouts, permission sets and profiles → upload to the UAT sandbox. Alternatively: `sf project deploy start -d force-app -o <uat-alias> --test-level RunLocalTests`. |
 | **Git & CI/CD** | Branches `main`, `develop`, `feature/appointment-module`; PR feature → develop with a review checklist; Gearset/Copado pipeline develop → UAT. |
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## Project structure
 
@@ -429,7 +450,7 @@ scripts/generate/        Metadata generators (security, layouts, app, reports)
 scripts/*.ps1            deploy-check / run-tests helpers (PowerShell)
 ```
 
----
+<p align="center"><img src="docs/assets/divider.svg" width="100%" alt=""/></p>
 
 ## What was fixed
 

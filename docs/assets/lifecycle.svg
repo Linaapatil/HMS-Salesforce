@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Appointment lifecycle: Requested, Confirmed, Completed, Cancelled, and the automation each stage triggers">
+  <title>Appointment lifecycle and automation</title>
+  <defs>
+    <style>
+      .bg { fill: #FBFAFF; stroke: #E4E1F0; }
+      .stage { fill: #EDE9F8; }
+      .label { font: 700 16px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #3B2F63; }
+      .step { font: 600 11px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #8B85A8; letter-spacing: 1.4px; }
+      .what { font: 400 13px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #4B4470; }
+      .who { font: 600 11px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #7C3AED; letter-spacing: 0.8px; }
+      .card { fill: #FFFFFF; stroke: #E4E1F0; }
+      /* each stage lights up in turn, 10 s cycle */
+      .hl { fill: #7C3AED; opacity: 0; }
+      .s1 { animation: on 10s infinite 0s; }
+      .s2 { animation: on 10s infinite 2.5s; }
+      .s3 { animation: on 10s infinite 5s; }
+      .s4 { animation: on 10s infinite 7.5s; }
+      @keyframes on { 0% { opacity: 0; } 4% { opacity: 1; } 22% { opacity: 1; } 27% { opacity: 0; } 100% { opacity: 0; } }
+      .t1, .t2, .t3, .t4 { fill: #3B2F63; }
+      .t1 { animation: white 10s infinite 0s; }
+      .t2 { animation: white 10s infinite 2.5s; }
+      .t3 { animation: white 10s infinite 5s; }
+      .t4 { animation: white 10s infinite 7.5s; }
+      @keyframes white { 0% { fill: #3B2F63; } 4% { fill: #FFFFFF; } 22% { fill: #FFFFFF; } 27% { fill: #3B2F63; } 100% { fill: #3B2F63; } }
+      .c1 { animation: lift 10s infinite 0s; }
+      .c2 { animation: lift 10s infinite 2.5s; }
+      .c3 { animation: lift 10s infinite 5s; }
+      .c4 { animation: lift 10s infinite 7.5s; }
+      @keyframes lift { 0% { stroke: #E4E1F0; } 4% { stroke: #7C3AED; } 22% { stroke: #7C3AED; } 27% { stroke: #E4E1F0; } 100% { stroke: #E4E1F0; } }
+    </style>
+  </defs>
+
+  <rect class="bg" x="1" y="1" width="1198" height="298" rx="18"/>
+
+  <!-- chevrons -->
+  <g>
+    <path class="stage" d="M30 40 H290 L314 72 L290 104 H30 Z"/>
+    <path class="hl s1" d="M30 40 H290 L314 72 L290 104 H30 Z"/>
+    <path class="stage" d="M320 40 H580 L604 72 L580 104 H320 L344 72 Z"/>
+    <path class="hl s2" d="M320 40 H580 L604 72 L580 104 H320 L344 72 Z"/>
+    <path class="stage" d="M610 40 H870 L894 72 L870 104 H610 L634 72 Z"/>
+    <path class="hl s3" d="M610 40 H870 L894 72 L870 104 H610 L634 72 Z"/>
+    <path class="stage" d="M900 40 H1170 V104 H900 L924 72 Z"/>
+    <path class="hl s4" d="M900 40 H1170 V104 H900 L924 72 Z"/>
+    <text x="160" y="78" class="label t1" text-anchor="middle">Requested</text>
+    <text x="462" y="78" class="label t2" text-anchor="middle">Confirmed</text>
+    <text x="752" y="78" class="label t3" text-anchor="middle">Completed</text>
+    <text x="1040" y="78" class="label t4" text-anchor="middle">Cancelled</text>
+  </g>
+
+  <!-- what happens -->
+  <rect class="card c1" x="30" y="124" width="276" height="150" rx="12"/>
+  <text x="48" y="150" class="step">ON CREATE</text>
+  <text x="48" y="176" class="what">Double-booking check per slot</text>
+  <text x="48" y="198" class="what">Past dates and inactive doctors blocked</text>
+  <text x="48" y="220" class="what">Confirmation call task created</text>
+  <text x="48" y="254" class="who">TRIGGER · VALIDATION · FLOW</text>
+
+  <rect class="card c2" x="322" y="124" width="276" height="150" rx="12"/>
+  <text x="340" y="150" class="step">STATUS = CONFIRMED</text>
+  <text x="340" y="176" class="what">Confirmation email alert to patient</text>
+  <text x="340" y="198" class="what">Patient last-appointment date updated</text>
+  <text x="340" y="220" class="what">Reminder sent the day before</text>
+  <text x="340" y="254" class="who">RECORD + SCHEDULED FLOW · BATCH</text>
+
+  <rect class="card c3" x="614" y="124" width="276" height="150" rx="12"/>
+  <text x="632" y="150" class="step">STATUS = COMPLETED</text>
+  <text x="632" y="176" class="what">Bill auto-created by appointment type</text>
+  <text x="632" y="198" class="what">Discount and insurance applied</text>
+  <text x="632" y="220" class="what">Over Rs. 1 lakh: approval process</text>
+  <text x="632" y="254" class="who">FLOW · BILLING TRIGGER · APPROVAL</text>
+
+  <rect class="card c4" x="906" y="124" width="264" height="150" rx="12"/>
+  <text x="924" y="150" class="step">STATUS = CANCELLED</text>
+  <text x="924" y="176" class="what">Doctor slot freed for rebooking</text>
+  <text x="924" y="198" class="what">Workload counter recalculated</text>
+  <text x="924" y="220" class="what">Cancellation email to patient</text>
+  <text x="924" y="254" class="who">TRIGGER · EMAIL SERVICE</text>
+</svg>
